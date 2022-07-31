@@ -1,6 +1,10 @@
 import styled, { css } from 'styled-components';
+import { SelectInput as _SelectInput } from '../../SelectetInput';
+
 
 const getWarningColor = () => css`${({theme }) => theme.color.warning}`
+
+export const SelectInput = styled(_SelectInput)``;
 
 export const Wrapper = styled.div`
 width: 100%;
@@ -28,4 +32,8 @@ export const TitleWrapper = styled.div<TitleProps>`
 
 export const Controllers = styled.div`
 display:flex;
+
+ ${SelectInput} {
+    margin-right: 4px;
+}
 `;

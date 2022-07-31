@@ -29,8 +29,8 @@ export const ContentHeader = ({ title, underLineColor }: Props ) => {
             <h1>{title}</h1>
             </S.TitleWrapper>
             <S.Controllers>
-                <SelectInput options={mesesAno} />
-                <SelectInput options={mesesAno}/>
+                <S.SelectInput options={mesesAno} />
+                <S.SelectInput options={mesesAno}/>
             </S.Controllers>
 
         </S.Wrapper>

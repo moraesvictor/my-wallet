@@ -7,15 +7,16 @@ import * as S from './SelectInput.styles';
 // 'novembro', 'dezembro']
 
 interface ISelectInputProps {
+    className?: string;
     options: {
         value: string | number
         label: string | number;
     }[]
 }
 
-export const SelectInput = ({ options }: ISelectInputProps) => {
+export const SelectInput = ({ options, className }: ISelectInputProps) => {
     return (
-        <S.Wrapper>
+        <S.Wrapper className={className}>
           <select>
             {options.map((option) => 
                 <option value={option.value}>{option.label}</option>
