@@ -1,60 +1,70 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
-const getBackgroundColor = () => css`${({ theme }) => theme.color.secondary}`;
+const getBackgroundColor = () =>
+  css`
+    ${({ theme }) => theme.color.secondary}
+  `;
 
-const getBorderColor = () => css`${({ theme }) => theme.color.gray}`;
+const getBorderColor = () =>
+  css`
+    ${({ theme }) => theme.color.gray}
+  `;
 
 type GetFontColorProps = {
-    info?: boolean
-}
+  info?: boolean;
+};
 
-const getFontColor = ({ info } : GetFontColorProps) => info ? css`${({ theme }) => theme.color.info}` : 
-css`${({ theme }) => theme.color.white}`;
+const getFontColor = ({ info }: GetFontColorProps) =>
+  info
+    ? css`
+        ${({ theme }) => theme.color.info}
+      `
+    : css`
+        ${({ theme }) => theme.color.white}
+      `;
 
 export const Wrapper = styled.div`
-grid-area: AS;
-color: ${getFontColor};
-background-color: ${getBackgroundColor};
-border-right: 1px solid ${getBorderColor};
-padding-left: 24px;
+  grid-area: AS;
+  color: ${getFontColor({ info: false })};
+  background-color: ${getBackgroundColor};
+  border-right: 1px solid ${getBorderColor};
+  padding-left: 24px;
 `;
 
 export const Logo = styled.img`
-margin-right: 4px;
-height: 40px;
-width: 40px;
+  margin-right: 4px;
+  height: 40px;
+  width: 40px;
 `;
 
 export const SidenavHeader = styled.header`
-display: flex;
-align-items: center;
-height: 70px;
+  display: flex;
+  align-items: center;
+  height: 70px;
 `;
 
 export const MenuContainer = styled.nav`
-display: flex;
-flex-direction: column;
-padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
 `;
 
 export const MenuItemLink = styled.a`
-color: ${getFontColor({info: true})};
-text-decoration: none;
-margin-bottom: 12px;
+  color: ${getFontColor({ info: true })};
+  text-decoration: none;
+  margin-bottom: 12px;
 
-transition: opacity .3s;
+  transition: opacity 0.3s;
 
-&:first-child {
+  &:first-child {
     margin-top: 16px;
-}
+  }
 
-&:hover {
-    opacity: .7;
-}
+  &:hover {
+    opacity: 0.7;
+  }
 `;
-
 
 export const MyWallet = styled.span``;
 
 export const IconAndItemWrapper = styled.div;
-
