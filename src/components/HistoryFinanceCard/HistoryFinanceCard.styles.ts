@@ -17,9 +17,16 @@ export const Wrapper = styled.li<WrapperProps>`
   transition: all 0.3s;
   position: relative;
 
-  :hover {
+  &:hover {
     opacity: 0.7;
     transform: translateX(10px);
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 10px;
   }
 `;
 
@@ -30,6 +37,7 @@ type TagProps = {
 export const Tag = styled.div<TagProps>`
   position: absolute;
   width: 10px;
-  height: 60%;
+  height: 30px;
+  left: 0;
   color: ${(props) => props.color};
 `;
