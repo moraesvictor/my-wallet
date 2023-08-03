@@ -1,11 +1,25 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Content, ContentHeader } from "../../components/Content";
 import { HistoryFinanceCard } from "../../components/HistoryFinanceCard";
 import { Wrapper } from "./List.styles";
 import { useParams } from "react-router-dom";
+import expenses from "../../repositories/expenses";
+import gains from "../../repositories/gains";
+import { SelectInput } from "../../components/Content/ContentHeader/ContentHeader.styles";
+import {
+  months,
+  years,
+} from "../../components/Content/ContentHeader/ContentHeader";
 
 export const List = () => {
   const { type } = useParams();
+  const [expensesState, setExpensesState] = useState(expenses);
+  const [gainsState, setGainsState] = useState(gains);
+  const [selectedMonth, setSelectedMonth] = useState<string | undefined>();
+  const [selectedYear, setSelectedYear] = useState(
+    new Date().getFullYear().toString()
+  );
+
   const properties = useMemo(() => {
     if (type === "entries")
       return {
@@ -19,83 +33,96 @@ export const List = () => {
       };
   }, [type]);
 
+  console.log(selectedMonth);
+
   return (
     <Wrapper>
       <ContentHeader
         title={properties?.title || ""}
         underLineColor={properties?.underlineColor}
-      />
+      >
+        <SelectInput
+          options={months}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            const selectedMonthValue = e.target.value;
+            setSelectedMonth(selectedMonthValue);
+            if (type === "entries") {
+              setGainsState(
+                expenses.filter((item) => {
+                  const itemYear = new Date(item.date).getFullYear();
+                  return itemYear === Number(selectedYear);
+                })
+              );
+              setGainsState((prev) =>
+                prev.filter((item) => {
+                  const itemMonth = new Date(item.date).getMonth() + 1;
+                  return itemMonth === Number(selectedMonthValue);
+                })
+              );
+            }
+            if (type === "expenses") {
+              setExpensesState(
+                expenses.filter((item) => {
+                  const itemYear = new Date(item.date).getFullYear();
+                  return itemYear === Number(selectedYear);
+                })
+              );
+              setExpensesState((prev) =>
+                prev.filter((item) => {
+                  const itemMonth = new Date(item.date).getMonth() + 1;
+                  return itemMonth === Number(selectedMonthValue);
+                })
+              );
+            }
+          }}
+        />
+        <SelectInput
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            const selectedYearValue = e.target.value;
+            setSelectedYear(selectedYearValue);
+
+            if (type === "expenses") {
+              setExpensesState(
+                expenses.filter((item) => {
+                  const itemYear = new Date(item.date).getFullYear();
+                  return itemYear === Number(e.target.value);
+                })
+              );
+            }
+
+            if (type === "entries") {
+              setGainsState(
+                gains.filter((item) => {
+                  const itemYear = new Date(item.date).getFullYear();
+                  return itemYear === Number(e.target.value);
+                })
+              );
+            }
+          }}
+          options={years.sort((a, b) => b.label - a.label)}
+        />
+      </ContentHeader>
       <Content>
-        <HistoryFinanceCard
-          cardColor="#313862"
-          tagColor="#ff0000"
-          title="Pagamento Mensal"
-          subtitle="Salário"
-          amount="R$ 1000,00"
-        />
-        <HistoryFinanceCard
-          cardColor="#313862"
-          tagColor="#00ff00"
-          title="Compras Recentes"
-          subtitle="Supermercado"
-          amount="R$ 500,00"
-        />
-        <HistoryFinanceCard
-          cardColor="#313862"
-          tagColor="#ff6600"
-          title="Receita Mensal"
-          subtitle="Investimentos"
-          amount="R$ 2000,00"
-        />
-        <HistoryFinanceCard
-          cardColor="#313862"
-          tagColor="#0088cc"
-          title="Gastos Essenciais"
-          subtitle="Aluguel, Água, Luz"
-          amount="R$ 800,00"
-        />
-        <HistoryFinanceCard
-          cardColor="#313862"
-          tagColor="#cc0066"
-          title="Despesas do Mês"
-          subtitle="Diversos"
-          amount="R$ 350,00"
-        />
-        <HistoryFinanceCard
-          cardColor="#313862"
-          tagColor="#66cc33"
-          title="Renda Extra"
-          subtitle="Freelance"
-          amount="R$ 600,00"
-        />
-        <HistoryFinanceCard
-          cardColor="#313862"
-          tagColor="#9900cc"
-          title="Investimentos"
-          subtitle="Ações"
-          amount="R$ 300,00"
-        />
-        <HistoryFinanceCard
-          cardColor="#313862"
-          tagColor="#336699"
-          title="Contas a Pagar"
-          subtitle="Cartão de Crédito"
-          amount="R$ 150,00"
-        />
-        <HistoryFinanceCard
-          cardColor="#313862"
-          tagColor="#cc9933"
-          title="Economias"
-          subtitle="Viagem"
-          amount="R$ 1200,00"
-        />
-        <HistoryFinanceCard
-          cardColor="#313862"
-          tagColor="#ff3366"
-          title="Despesas Variáveis"
-          subtitle="Lazer"
-          amount="R$ 250,00"
-        />
+        {type === "expenses" &&
+          expensesState.map((expense) => (
+            <HistoryFinanceCard
+              cardColor="#313862"
+              tagColor="#ff0000"
+              title={expense.description}
+              subtitle={expense.date}
+              amount={`R$ ${expense.amount}`}
+            />
+          ))}
+        {type === "entries" &&
+          gainsState.map((gain) => (
+            <HistoryFinanceCard
+              cardColor="#313862"
+              tagColor="#ff0000"
+              title={gain.description}
+              subtitle={gain.date}
+              amount={`R$ ${gain.amount}`}
+            />
+          ))}
       </Content>
     </Wrapper>
   );

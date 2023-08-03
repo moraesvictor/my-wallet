@@ -1,9 +1,8 @@
 import * as S from "./ContentHeader.styles";
 
-import { SelectInput } from "../../SelectetInput";
-import React from "react";
+import React, { ReactNode } from "react";
 
-const months = [
+export const months = [
   { value: 1, label: "janeiro" },
   { value: 2, label: "favereiro" },
   { value: 3, label: "março" },
@@ -18,7 +17,7 @@ const months = [
   { value: 12, label: "Dezembro" },
 ];
 
-const years = [
+export const years = [
   { value: 1994, label: 1994 },
   { value: 1995, label: 1995 },
   { value: 1996, label: 1996 },
@@ -54,18 +53,16 @@ const years = [
 type Props = {
   title: string;
   underLineColor?: string;
+  children?: ReactNode;
 };
 
-export const ContentHeader = ({ title, underLineColor }: Props) => {
+export const ContentHeader = ({ title, underLineColor, children }: Props) => {
   return (
     <S.Wrapper>
       <S.TitleWrapper underLineColor={underLineColor}>
         <h1>{title}</h1>
       </S.TitleWrapper>
-      <S.Controllers>
-        <S.SelectInput options={months} />
-        <S.SelectInput options={years.sort((a, b) => b.label - a.label)} />
-      </S.Controllers>
+      <S.Controllers>{children}</S.Controllers>
     </S.Wrapper>
   );
 };

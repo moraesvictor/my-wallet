@@ -4,9 +4,6 @@ import { List } from "../views/List";
 import { Layout } from "../components/Layout";
 
 export const AppRoutes = () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const type = urlParams.get("type");
-
   return (
     <BrowserRouter>
       <Layout>
