@@ -1,7 +1,7 @@
 # Monthly Expenses Wallet
 
-![screenshot-1](./path/to/screenshot-1.png)
-![screenshot-2](./path/to/screenshot-2.png)
+![screenshot-1](./screenshot-1.png)
+![screenshot-2](./screenshot-2.png)
 
 A simple monthly expenses wallet application built with React, TypeScript, and Styled-Components.
 
