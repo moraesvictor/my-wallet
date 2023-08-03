@@ -1,11 +1,30 @@
+import { useMemo } from "react";
 import { Content, ContentHeader } from "../../components/Content";
 import { HistoryFinanceCard } from "../../components/HistoryFinanceCard";
 import { Wrapper } from "./List.styles";
+import { useParams } from "react-router-dom";
 
 export const List = () => {
+  const { type } = useParams();
+  const properties = useMemo(() => {
+    if (type === "entries")
+      return {
+        title: "Entradas",
+        underlineColor: "#f7319b",
+      };
+    if (type === "expenses")
+      return {
+        title: "Saídas",
+        underlineColor: "#e44c4e",
+      };
+  }, [type]);
+
   return (
     <Wrapper>
-      <ContentHeader title="Saídas" underLineColor="#e44c4e" />
+      <ContentHeader
+        title={properties?.title || ""}
+        underLineColor={properties?.underlineColor}
+      />
       <Content>
         <HistoryFinanceCard
           cardColor="#313862"
