@@ -15,7 +15,9 @@ export const List = () => {
   const { type } = useParams();
   const [expensesState, setExpensesState] = useState(expenses);
   const [gainsState, setGainsState] = useState(gains);
-  const [selectedMonth, setSelectedMonth] = useState<string | undefined>();
+  const [selectedMonth, setSelectedMonth] = useState<string | undefined>(
+    (new Date().getMonth() + 1).toString()
+  );
   const [selectedYear, setSelectedYear] = useState(
     new Date().getFullYear().toString()
   );
@@ -24,7 +26,7 @@ export const List = () => {
     if (type === "entries")
       return {
         title: "Entradas",
-        underlineColor: "#f7319b",
+        underlineColor: "#00C853",
       };
     if (type === "expenses")
       return {
