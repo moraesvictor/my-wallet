@@ -1,0 +1,33 @@
+import { Wrapper } from "./DashboardCard.styles";
+import dollarImg from "../../assets/dollar.svg";
+import arrowDownImg from "../../assets/arrow-down.svg";
+import arrowUpImg from "../../assets/arrow-up.svg";
+
+type Props = {
+  color: string;
+  icon: "dolar" | "up" | "down";
+  amount: number;
+  title: string;
+  footerLabel: string;
+};
+export const DashboardCard = ({
+  color,
+  icon,
+  amount,
+  title,
+  footerLabel,
+}: Props) => {
+  const iconSelected = () => {
+    if (icon === "dolar") return dollarImg;
+    if (icon === "down") return arrowDownImg;
+    if (icon === "up") return arrowUpImg;
+  };
+  return (
+    <Wrapper color={color}>
+      <span>{title}</span>
+      <h1>R$ {amount}</h1>
+      <small>{footerLabel}</small>
+      <img src={iconSelected()} alt={title} />
+    </Wrapper>
+  );
+};
