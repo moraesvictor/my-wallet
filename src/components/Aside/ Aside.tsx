@@ -1,53 +1,52 @@
-import * as S from './Aside.styles';
-import { 
-    MdDashboard, 
-    MdArrowDownward, 
-    MdArrowUpward, 
-    MdExitToApp } from 'react-icons/md'
+import * as S from "./Aside.styles";
+import {
+  MdDashboard,
+  MdArrowDownward,
+  MdArrowUpward,
+  MdExitToApp,
+} from "react-icons/md";
 
+import logo from "../../assets/logo.svg";
 
-import logo from '../../assets/logo.svg'
-
-const MenuItems = [{
-    name: 'Dashboard',
-    route: '#',
-    icon: MdDashboard
-   },
-   {
-    name: 'Entradas',
-    route: '#',
-    icon: MdArrowDownward
-   },
-   {
-    name: 'Saídas',
-    route: '#',
-    icon: MdArrowUpward
-
-   },
-   {
-    name: 'Sair',
-    route: '#',
-    icon: MdExitToApp
-   },
-]
+const MenuItems = [
+  {
+    name: "Dashboard",
+    route: "/dashboard",
+    icon: MdDashboard,
+  },
+  {
+    name: "Entradas",
+    route: "/list/entries",
+    icon: MdArrowDownward,
+  },
+  {
+    name: "Saídas",
+    route: "/list/expenses",
+    icon: MdArrowUpward,
+  },
+  {
+    name: "Sair",
+    route: "#",
+    icon: MdExitToApp,
+  },
+];
 
 export const Aside = () => {
-    return (
+  return (
     <S.Wrapper>
-        <S.SidenavHeader>
-          <S.Logo src={logo} alt='logo da carteira'/>
-          <S.MyWallet>Minha Carteira</S.MyWallet>
-        </S.SidenavHeader>
+      <S.SidenavHeader>
+        <S.Logo src={logo} alt="logo da carteira" />
+        <S.MyWallet>Minha Carteira</S.MyWallet>
+      </S.SidenavHeader>
 
-        <S.MenuContainer>
-            {MenuItems.map((menuItem) => 
-                 <S.MenuItemLink href={menuItem.route}>
-                    {menuItem.icon}
-                    {menuItem.name}
-                </S.MenuItemLink>          
-            )}
-        </S.MenuContainer>
-
+      <S.MenuContainer>
+        {MenuItems.map((menuItem, index) => (
+          <S.MenuItemLink key={index} href={menuItem.route}>
+            {menuItem.icon}
+            {menuItem.name}
+          </S.MenuItemLink>
+        ))}
+      </S.MenuContainer>
     </S.Wrapper>
-    );
+  );
 };

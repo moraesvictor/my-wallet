@@ -1,19 +1,15 @@
 import GlobalStyles from "./Styles/GlobalStyles";
-import { ThemeProvider } from "styled-components"; 
-import { Layout } from "./components/Layout";
+import { ThemeProvider } from "styled-components";
 
-import dark from './Styles/themes/dark'
-import { Dashboard } from "./views/Dashboard";
-import { List } from "./views/List";
+import dark from "./Styles/themes/dark";
+import { Routes } from "./routes";
 // import light from './Styles/themes/light'
 
 export const App = () => {
-    return (
-    <ThemeProvider theme={dark} >
-      <Layout>
-        <List />
-      </Layout>
+  return (
+    <ThemeProvider theme={dark}>
+      <Routes />
       <GlobalStyles />
     </ThemeProvider>
-    );
-}
+  );
+};
