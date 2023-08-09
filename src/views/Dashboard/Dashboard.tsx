@@ -14,6 +14,29 @@ export const Dashboard = () => {
     return items.reduce((total, item) => total + parseInt(item.amount, 10), 0);
   };
 
+  const getCardValues = () => {
+    if (sum(gains) - sum(expenses) > 0)
+      return {
+        description: "Sua carteira está positiva",
+        title: "Muito bem!",
+        footerDescription: "Demais!! Considere investir seu saldo",
+      };
+    if (sum(gains) - sum(expenses) < 0)
+      return {
+        description: "Sua carteira está negativa",
+        title: "Saldo negativo!",
+        footerDescription: "Tente reorganizar suas contas",
+      };
+
+    return {
+      description: "Seu saldo é 0",
+      title: "Saldo 0 !",
+      footerDescription: "...",
+    };
+  };
+
+  const cardValues = getCardValues();
+
   return (
     <S.Wrapper>
       <ContentHeader title="Dashboard" underLineColor="#f7319b">
@@ -43,6 +66,12 @@ export const Dashboard = () => {
           color="#e44c4e"
         />
       </div>
+      <S.MessageCard
+        description={cardValues.description}
+        sum={sum(gains) - sum(expenses)}
+        footerDescription={cardValues.footerDescription || ""}
+        title={cardValues.title}
+      />
     </S.Wrapper>
   );
 };
